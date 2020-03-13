@@ -46,6 +46,25 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void modifyItem(Item item) {
+        List<Item> items =(List<Item>) itemRepo.findAll();
+        int itemId = item.getItem_id();
+        boolean flag=false;
+        for(Item itemFromDb : items){
+            if(itemId == itemFromDb.getItem_id()){
+                flag=true;
+                break;
+            }
+        }
+        if(flag){
+            itemRepo.save(item);
+        }
+        else{
+            System.out.println("item is not available in database, So you can't modify it");
+        }
+    }
+
+    @Override
     public void deleteItem(int item_id) {
         itemRepo.deleteById(item_id);
     }

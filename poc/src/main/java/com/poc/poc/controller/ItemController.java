@@ -33,9 +33,12 @@ public class ItemController {
     @GetMapping("get-item/{item_id}")
     public Item getItem(@PathVariable int item_id){
         return itemService.getItem(item_id);
-
     }
 
+    @PutMapping
+    public void modifyItem(@RequestBody Item item){
+        itemService.modifyItem(item);
+    }
     @DeleteMapping("delete-item/{item_id}")
     public void deleteItem(@PathVariable int item_id){
         itemService.deleteItem(item_id);

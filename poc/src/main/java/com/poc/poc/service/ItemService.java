@@ -16,5 +16,7 @@ public interface ItemService {
 
     public Item getItem(int item_id);
 
+    public void modifyItem(Item item);
+
     public void deleteItem(int item_id);
 }
