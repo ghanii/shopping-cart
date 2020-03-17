@@ -36,4 +36,42 @@ public class CustomerServiceImpl implements CustomerService {
     public void addCustomer(Customer customer) {
         customerRepo.save(customer);
     }
+
+    @Override
+    public void addAllCustomers(List<Customer> customers) {
+        customerRepo.saveAll(customers);
+    }
+
+    @Override
+    public void deleteCustomer(int customer_id) {
+        customerRepo.deleteById(customer_id);
+    }
+
+    @Override
+    public void modifyCustomer(Customer customer)
+    {
+        List<Customer> customers = ( List<Customer>)customerRepo.findAll();
+        boolean flagForCustomerId=false;
+        boolean flagForAddressId=false;
+
+        for(Customer customer1 : customers){
+            if(customer1.getCustomer_id()== customer.getCustomer_id()){
+                flagForCustomerId=true;
+
+                if(customer.getAddress().getAddress_id() == customer1.getAddress().getAddress_id()){
+                    flagForAddressId=true;
+                    customerRepo.save(customer);
+                }
+                else{
+                    System.out.println("Customer's address can't modify because this is not available in database");
+                }
+            }
+        }
+        if(flagForCustomerId && flagForAddressId){
+           System.out.println("Customer is modified");
+        }
+        else{
+            System.out.println("Customer is not modified, because the customer_id or address_id is not matched with existing customer");
+        }
+    }
 }

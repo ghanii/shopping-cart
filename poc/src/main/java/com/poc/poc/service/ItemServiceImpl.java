@@ -22,6 +22,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void addAllItems(List<Item> items) {
+        itemRepo.saveAll(items);
+    }
+
+    @Override
     public void addItemWithoutData() {
         Item item = new Item(10,"milk",250, Category.MILK,new Date(),new Date());
         itemRepo.save(item);
