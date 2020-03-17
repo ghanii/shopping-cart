@@ -26,7 +26,7 @@ public class ItemController {
     /**
      * add all items
     */
-    @PostMapping("add-all-items")
+    @PostMapping
     public void addAllItems(@RequestBody List<Item> items){
         itemService.addAllItems(items);
     }
@@ -53,7 +53,7 @@ public class ItemController {
     /**
      * modify an item
      * */
-    @PutMapping("edit-item")
+    @PutMapping
     public void modifyItem(@RequestBody Item item){
         itemService.modifyItem(item);
     }
