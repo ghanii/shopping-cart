@@ -10,6 +10,8 @@ public interface ItemService {
 
     public void addItem(Item item);
 
+    public void addAllItems(List<Item> items);
+
     public void addItemWithoutData();
 
     public List<Item> getItems();

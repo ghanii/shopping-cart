@@ -10,4 +10,8 @@ public interface CustomerService {
     public List<Customer> getCustomers();
     public Customer getCustomerById(int customer_id);
     public void addCustomer(Customer customer);
+    public void addAllCustomers(List<Customer> customers);
+
+    public void deleteCustomer(int customer_id);
+    public void modifyCustomer(Customer customer);
 }
