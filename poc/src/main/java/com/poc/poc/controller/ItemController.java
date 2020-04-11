@@ -36,6 +36,11 @@ public class ItemController {
 
     }
 
+    @PutMapping("edit-item")
+    public void modifyItem(@RequestBody Item item){
+        itemService.modifyItem(item);
+    }
+
     @DeleteMapping("delete-item/{item_id}")
     public void deleteItem(@PathVariable int item_id){
         itemService.deleteItem(item_id);
