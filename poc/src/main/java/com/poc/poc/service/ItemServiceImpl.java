@@ -22,6 +22,11 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    public void addAllItems(List<Item> items) {
+        itemRepo.saveAll(items);
+    }
+
+    @Override
     public void addItemWithoutData() {
         Item item = new Item(10,"milk",250, Category.MILK,new Date(),new Date());
         itemRepo.save(item);
@@ -55,6 +60,25 @@ public class ItemServiceImpl implements ItemService {
             System.out.println("This item is not available in database, So can't modify....");
         }
 
+    }
+
+    @Override
+    public void modifyItem(Item item) {
+        List<Item> items =(List<Item>) itemRepo.findAll();
+        int itemId = item.getItem_id();
+        boolean flag=false;
+        for(Item itemFromDb : items){
+            if(itemId == itemFromDb.getItem_id()){
+                flag=true;
+                break;
+            }
+        }
+        if(flag){
+            itemRepo.save(item);
+        }
+        else{
+            System.out.println("item is not available in database, So you can't modify it");
+        }
     }
 
     @Override

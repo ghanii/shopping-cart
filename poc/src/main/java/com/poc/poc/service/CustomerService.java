@@ -22,6 +22,6 @@ public interface CustomerService {
 
     public void deleteCustomer(int customer_id);
 
-    //just for testing
     public void saveCustomerWithInternalData();
+         
 }

@@ -75,11 +75,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     }
 
-    @Override
-    public void deleteCustomer(int customer_id) {
-        customerRepo.deleteById(customer_id);
-    }
-
     //Just for testing
     @Override
     public void saveCustomerWithInternalData() {
@@ -100,4 +95,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
 
+    public void addAllCustomers(List<Customer> customers) {
+        customerRepo.saveAll(customers);
+    }
+
+    @Override
+    public void deleteCustomer(int customer_id) {
+        customerRepo.deleteById(customer_id);
+    }
+   
 }

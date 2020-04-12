@@ -15,12 +15,17 @@ public class CustomerController {
     @Autowired
     private CustomerService customerService;
 
+    /**
+     * get all customers
+     * */
     @GetMapping("/get-customers")
     public List<Customer> getCustomers(){
         List<Customer> customers = customerService.getCustomers();
         return customers;
     }
-
+    /**
+     * get a customer by customer_id
+     * */
     @GetMapping("/get-customer/{customer_id}")
     public Customer getCustomerById(@PathVariable int customer_id){
         return customerService.getCustomerById(customer_id);
@@ -32,7 +37,9 @@ public class CustomerController {
     {
         return customerService.getAddressByCustId(customer_id);
     }
-
+    /**
+     * add a customer
+     * */
     @PostMapping("/add-customer")
     public Customer addCustomer(Customer customer){
         customerService.addCustomer(customer);
@@ -47,18 +54,17 @@ public class CustomerController {
     public void modifyCustomer(@RequestBody Customer customer){
         customerService.modifyCustomer(customer);
     }
-
+    /**
+     * delete a customer
+     * */
     @DeleteMapping("delete-customer/{customer_id}")
     public void deleteCustomer(@PathVariable int customer_id)
     {
         customerService.deleteCustomer(customer_id);
     }
-
     // Just for testing
     @PostMapping("save-customer-without-data")
     public void saveCustomerWithoutData() {
         customerService.saveCustomerWithInternalData();
     }
-
-
 }
