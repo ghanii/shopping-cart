@@ -50,13 +50,11 @@ public class ItemController {
     public Item getItem(@PathVariable int item_id){
         return itemService.getItem(item_id);
     }
-    /**
-     * modify an item
-     * */
-    @PutMapping
+    @PutMapping("edit-item")
     public void modifyItem(@RequestBody Item item){
         itemService.modifyItem(item);
     }
+
     /**
      * delete an item by item_id
      * */

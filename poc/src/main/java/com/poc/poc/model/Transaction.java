@@ -2,10 +2,15 @@ package com.poc.poc.model;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
+import java.time.LocalDate;
 import java.util.Date;
 
 @Entity
 public class Transaction {
+
+    @Id
+    private int transaction_id;
     @Column
     private int item_id;
     @Column
@@ -19,12 +24,12 @@ public class Transaction {
      * dop - Date of purchase
      */
     @Column
-    private Date dop;
+    private LocalDate dop;
 
     public Transaction() {
     }
 
-    public Transaction(int item_id, int quantity, Double amount, int customer_id, Date dop) {
+    public Transaction(int transaction_id, int item_id, int quantity, Double amount, int customer_id, LocalDate dop) {
         this.item_id = item_id;
         this.quantity = quantity;
         this.amount = amount;
@@ -64,18 +69,19 @@ public class Transaction {
         this.customer_id = customer_id;
     }
 
-    public Date getDop() {
+    public LocalDate getDop() {
         return dop;
     }
 
-    public void setDop(Date dop) {
+    public void setDop(LocalDate dop) {
         this.dop = dop;
     }
 
     @Override
     public String toString() {
         return "Transaction{" +
-                "item_id=" + item_id +
+                "transaction_id=" + transaction_id +
+                ", item_id=" + item_id +
                 ", quantity=" + quantity +
                 ", amount=" + amount +
                 ", customer_id=" + customer_id +

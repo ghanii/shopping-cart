@@ -1,5 +1,6 @@
 package com.poc.poc.controller;
 
+import com.poc.poc.model.Address;
 import com.poc.poc.model.Customer;
 import com.poc.poc.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +31,12 @@ public class CustomerController {
         return customerService.getCustomerById(customer_id);
 
     }
+
+    @GetMapping("get-address/{customer_id}")
+    public Address getAddressByCustId(@PathVariable int customer_id)
+    {
+        return customerService.getAddressByCustId(customer_id);
+    }
     /**
      * add a customer
      * */
@@ -38,32 +45,26 @@ public class CustomerController {
         customerService.addCustomer(customer);
         return customer;
     }
-
-    /**
-     * add all customers
-     * */
-    @PostMapping("/add-all-customers")
-    public void addAllCustomers(@RequestBody List<Customer> customers)
-    {
-        customerService.addAllCustomers(customers);
+    @PostMapping("save-all-customers")
+    public void saveAllCustomers(List<Customer> customers){
+        customerService.saveAllCustomers(customers);
     }
 
+    @PutMapping("edit-customer")
+    public void modifyCustomer(@RequestBody Customer customer){
+        customerService.modifyCustomer(customer);
+    }
     /**
      * delete a customer
      * */
-
     @DeleteMapping("delete-customer/{customer_id}")
     public void deleteCustomer(@PathVariable int customer_id)
     {
         customerService.deleteCustomer(customer_id);
     }
-
-    /**
-     * delete a customer
-     * */
-    @PutMapping("edit-customer")
-    public void modifyCustomer(@RequestBody Customer customer){
-        customerService.modifyCustomer(customer);
+    // Just for testing
+    @PostMapping("save-customer-without-data")
+    public void saveCustomerWithoutData() {
+        customerService.saveCustomerWithInternalData();
     }
-
 }

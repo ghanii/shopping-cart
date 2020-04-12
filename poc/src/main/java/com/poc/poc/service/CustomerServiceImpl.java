@@ -1,6 +1,8 @@
 package com.poc.poc.service;
 
+import com.poc.poc.model.Address;
 import com.poc.poc.model.Customer;
+import com.poc.poc.model.Level;
 import com.poc.poc.repo.CustomerRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -38,6 +40,61 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Address getAddressByCustId(int customer_id) {
+
+        Customer customer;
+        Optional<Customer> option = customerRepo.findById(customer_id);
+        if(option.isPresent()){
+            customer = option.get();
+        }else{
+            return null;
+        }
+        return customer.getAddress();
+    }
+
+    @Override
+    public void saveAllCustomers(List<Customer> customers) {
+        customerRepo.saveAll(customers);
+    }
+
+    @Override
+    public void modifyCustomer(Customer customer) {
+        Customer customer1 = getCustomerById(customer.getCustomer_id());
+        if(customer1 != null){
+            Address address = customer1.getAddress();
+            if(address.getAddress_id()== customer.getAddress().getAddress_id()){
+                customerRepo.save(customer);
+            }
+            else{
+                System.out.println("Address id "+ customer.getAddress().getAddress_id()+" is not available in database, So we can't modify this customer...");
+            }
+        }
+        else{
+            System.out.println("customer id "+customer.getCustomer_id()+" is not available in database, So we can't modify this customer... ");
+        }
+
+    }
+
+    //Just for testing
+    @Override
+    public void saveCustomerWithInternalData() {
+        Address address1 = new Address();
+        address1.setHouse_no(102);
+        address1.setCity("bangalore");
+        address1.setState("Karnataka");
+        address1.setCountry("india");
+        address1.setPincode(560067);
+
+        Customer customer1 = new Customer();
+        customer1.setCustomer_id(78);
+        customer1.setCustomer_name("shubham");
+        customer1.setAddress(address1);
+        customer1.setPhone_no(895623457);
+        customer1.setLevel(Level.SILVER);
+        customerRepo.save(customer1);
+    }
+
+
     public void addAllCustomers(List<Customer> customers) {
         customerRepo.saveAll(customers);
     }
@@ -46,32 +103,5 @@ public class CustomerServiceImpl implements CustomerService {
     public void deleteCustomer(int customer_id) {
         customerRepo.deleteById(customer_id);
     }
-
-    @Override
-    public void modifyCustomer(Customer customer)
-    {
-        List<Customer> customers = ( List<Customer>)customerRepo.findAll();
-        boolean flagForCustomerId=false;
-        boolean flagForAddressId=false;
-
-        for(Customer customer1 : customers){
-            if(customer1.getCustomer_id()== customer.getCustomer_id()){
-                flagForCustomerId=true;
-
-                if(customer.getAddress().getAddress_id() == customer1.getAddress().getAddress_id()){
-                    flagForAddressId=true;
-                    customerRepo.save(customer);
-                }
-                else{
-                    System.out.println("Customer's address can't modify because this is not available in database");
-                }
-            }
-        }
-        if(flagForCustomerId && flagForAddressId){
-           System.out.println("Customer is modified");
-        }
-        else{
-            System.out.println("Customer is not modified, because the customer_id or address_id is not matched with existing customer");
-        }
-    }
+   
 }
